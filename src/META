@@ -1,0 +1,9 @@
+# OASIS_START
+# DO NOT EDIT (digest: 4fbe1adb86c74be1c2b4716dbd0e7901)
+version = "0.0.1"
+description = "Bindings to GeoIP library"
+archive(byte) = "geoip.cma"
+archive(native) = "geoip.cmxa"
+exists_if = "geoip.cma"
+# OASIS_STOP
+
