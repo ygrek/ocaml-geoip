@@ -23,15 +23,12 @@ let test_geoip () =
     List.iter (fun s -> printf "%s -> %s\n" s (show (code s))) ips;
     Geoip.close gi
   in
-  match Geoip.open_file "GeoIP.dat" Geoip.MEMORY_CACHE with
+  match Geoip.init Geoip.MEMORY_CACHE with
   | Some gi -> test gi
-  | None ->
-    match Geoip.open_file "/usr/share/GeoIP/GeoIP.dat" Geoip.MEMORY_CACHE with
-    | Some gi -> test gi
-    | None -> skip_if true "no GeoIP.dat"
+  | None -> skip_if true "no GeoIP.dat"
 
 let geoip_loop () = 
-  match Geoip.open_file "GeoIP.dat" Geoip.MEMORY_CACHE with
+  match Geoip.init Geoip.MEMORY_CACHE with
   | None -> failwith "no geoip"
   | Some gi ->
     let rec loop () =

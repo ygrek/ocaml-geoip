@@ -17,6 +17,10 @@ static value Val_some(value v)
     CAMLreturn( some );
 }
 
+#define Some_val(v) (Field(v,0))
+
+#define Geoip_val(v) ((GeoIP*)(v))
+
 static int Geoip_flag_val(value v)
 {
     static const GeoIPOptions table_flags[] =
@@ -37,15 +41,19 @@ static int Geoip_flag_val(value v)
     return 0; // never happens
 }
 
-CAMLprim value caml_geoip_open(value path, value flag)
+CAMLprim value caml_geoip_open(value v_path, value v_flag)
 {
-    CAMLparam1(path);
+    CAMLparam2(v_path,v_flag);
+    GeoIP* gi = NULL;
 
-    char const* path_c = String_val(path);
-    GeoIP* gi = GeoIP_open(path_c, Geoip_flag_val(flag));
-    if (gi)
-      CAMLreturn(Val_some((value)gi)); 
-    else 
+    if (Val_none != v_path)
+      gi = GeoIP_open(String_val(Some_val(v_path)), Geoip_flag_val(v_flag));
+    else
+      gi = GeoIP_new(Geoip_flag_val(v_flag));
+
+    if (NULL != gi)
+      CAMLreturn(Val_some((value)gi));
+    else
       CAMLreturn(Val_none);
 }
 
@@ -53,10 +61,9 @@ CAMLprim value caml_geoip_country_code_by_name(value gi, value host)
 {
     CAMLparam2(gi, host);
 
-    char const* host_c = String_val(host);
-    char const* code = GeoIP_country_code_by_name((GeoIP*)gi, host_c);
+    char const* code = GeoIP_country_code_by_name(Geoip_val(gi), String_val(host));
 
-    if (code)
+    if (NULL != code)
       CAMLreturn(Val_some(caml_copy_string(code)));
     else
       CAMLreturn(Val_none);
@@ -65,6 +72,6 @@ CAMLprim value caml_geoip_country_code_by_name(value gi, value host)
 CAMLprim value caml_geoip_close(value gi)
 {
     CAMLparam1(gi);
-    GeoIP_delete((GeoIP*)gi);
+    GeoIP_delete(Geoip_val(gi));
     CAMLreturn(Val_unit);
 }
