@@ -36,3 +36,9 @@ setup.data:
 .PHONY: build doc test all install uninstall reinstall clean distclean configure
 
 # OASIS_STOP
+
+.PHONY: gen
+
+gen:
+	cd src && camlidl -no-include geoip.idl
+

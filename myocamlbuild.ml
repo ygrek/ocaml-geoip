@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: a4a3e651a7ff011e144c5447692f5302) *)
+(* DO NOT EDIT (digest: 787e19c4bc0360fe7c214f77f741b298) *)
 module OASISGettext = struct
 # 21 "src/oasis/OASISGettext.ml"
   
@@ -453,13 +453,27 @@ open Ocamlbuild_plugin;;
 let package_default =
   {
      MyOCamlbuildBase.lib_ocaml = [("src/geoip", ["src"])];
-     lib_c = [("geoip", "src", [])];
+     lib_c = [("geoip", "src", ["src/geoip_init.h"])];
      flags =
        [
           (["oasis_library_geoip_cclib"; "link"],
-            [(OASISExpr.EBool true, S [A "-cclib"; A "-lGeoIP"])]);
+            [
+               (OASISExpr.EBool true,
+                 S
+                   [
+                      A "-cclib";
+                      A "-lGeoIP";
+                      A "-cclib";
+                      A "-L/usr/lib/ocaml";
+                      A "-cclib";
+                      A "-lcamlidl"
+                   ])
+            ]);
           (["oasis_library_geoip_cclib"; "ocamlmklib"; "c"],
-            [(OASISExpr.EBool true, S [A "-lGeoIP"])])
+            [
+               (OASISExpr.EBool true,
+                 S [A "-lGeoIP"; A "-L/usr/lib/ocaml"; A "-lcamlidl"])
+            ])
        ];
      }
   ;;

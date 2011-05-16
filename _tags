@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 488596669fe101f797ba20d7a162e073)
+# DO NOT EDIT (digest: 47374e2be82abcd00176c81dd679a420)
 # Library geoip
 "src": include
 <src/geoip.{cma,cmxa}>: oasis_library_geoip_cclib
@@ -10,8 +10,8 @@
 <src/geoip.{cma,cmxa}>: stubs_geoip
 # Executable test
 <test.{native,byte}>: use_geoip
-<test.{native,byte}>: pkg_oUnit
+<test.{native,byte}>: pkg_unix
 <*.ml{,i}>: use_geoip
-<*.ml{,i}>: pkg_oUnit
+<*.ml{,i}>: pkg_unix
 <test.{native,byte}>: custom
 # OASIS_STOP

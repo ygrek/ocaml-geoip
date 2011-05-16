@@ -22,8 +22,9 @@ Description:
 Library geoip
   Path: src
   Modules: Geoip
-  CClib: -lGeoIP
-  CSources: geoip_stubs.c
+  CClib: -lGeoIP -L/usr/lib/ocaml -lcamlidl
+  CSources: geoip_stubs.c, geoip_init.h
+#  BuildDepends: camlidl
 
 Executable test
   Install: false
@@ -31,7 +32,7 @@ Executable test
   MainIs: test.ml
   CompiledObject: best
   Custom: true
-  BuildDepends: geoip, oUnit
+  BuildDepends: geoip, unix
 
 Test test
   Command: $test
@@ -42,6 +43,7 @@ Document api
   BuildTools: ocamldoc
   Format: HTML
   Index: index.html
+  InstallDir: $datarootdir/doc/ocaml-geoip
   XOCamlbuildPath:      src/
   XOCamlbuildLibraries: geoip
 
