@@ -1,3 +1,5 @@
+/* This file is derived from GeoIP.h */
+
 /* GeoIP.h
  *
  * Copyright (C) 2006 MaxMind LLC
@@ -16,6 +18,8 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
+quote(mli, "(** GeoIP database library *)\n")
 
 quote(h,"#include <GeoIP.h>\n")
 
@@ -129,8 +133,14 @@ enum netspeed {
 [mlname(setup_custom_directory)]
 GEOIP_API void GeoIP_setup_custom_directory([string] char *dir);
 
+[mlname(is_db_avail)]
+GEOIP_API boolean GeoIP_db_avail(enum db_type type);
+
 quote(ml, "external init_exn : ?path:string -> ?db:db_type -> flags -> t = \"caml_geoip_init\"\n")
-quote(mli,"external init_exn : ?path:string -> ?db:db_type -> flags -> t = \"caml_geoip_init\"\n")
+quote(mli,"(** Open GeoIP database specified by [path] if given, \n\
+otherwise open database by [db_type] if given, otherwise open default database. \n\
+@raise Failure if database cannot be opened *)\n\
+val init_exn : ?path:string -> ?db:db_type -> flags -> t\n")
 
 quote(c,"#include \"geoip_init.h\"\n")
 
@@ -139,9 +149,6 @@ GEOIP_API GeoIP* GeoIP_open_type(int type, int flags);
 GEOIP_API GeoIP* GeoIP_new(int flags);
 GEOIP_API GeoIP* GeoIP_open(const char * filename, int flags);
 */
-
-[mlname(is_db_avail)]
-GEOIP_API boolean GeoIP_db_avail(enum db_type type);
 
 [mlname(close)]
 GEOIP_API void GeoIP_delete(t gi);
@@ -207,15 +214,21 @@ GEOIP_API const char *GeoIP_country_name_by_name_v6 (t gi, [string] const char *
 //GEOIP_API char *GeoIP_org_by_name_v6 (GeoIP* gi, const char *name);
 //
 ///* End deprecated */
-//
-//GEOIP_API int GeoIP_id_by_addr (GeoIP* gi, const char *addr);
-//GEOIP_API int GeoIP_id_by_name (GeoIP* gi, const char *host);
-//GEOIP_API int GeoIP_id_by_ipnum (GeoIP* gi, unsigned long ipnum);
-//
-//GEOIP_API int GeoIP_id_by_addr_v6 (GeoIP* gi, const char *addr);
-//GEOIP_API int GeoIP_id_by_name_v6 (GeoIP* gi, const char *host);
-//GEOIP_API int GeoIP_id_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
-//
+
+[mlname(id_by_addr)]
+GEOIP_API int GeoIP_id_by_addr (t gi, [string] const char *addr);
+[mlname(id_by_name)]
+GEOIP_API int GeoIP_id_by_name (t gi, [string] const char *host);
+[mlname(id_by_ipnum)]
+GEOIP_API int GeoIP_id_by_ipnum (t gi, unsigned long ipnum);
+
+[mlname(id_by_addr_v6)]
+GEOIP_API int GeoIP_id_by_addr_v6 (t gi, [string] const char *addr);
+[mlname(id_by_name_v6)]
+GEOIP_API int GeoIP_id_by_name_v6 (t gi, [string] const char *host);
+//[mlname(id_by_ipnum_v6)]
+//GEOIP_API int GeoIP_id_by_ipnum_v6 (t gi, geoipv6_t ipnum);
+
 //GEOIP_API GeoIPRegion * GeoIP_region_by_addr (GeoIP* gi, const char *addr);
 //GEOIP_API GeoIPRegion * GeoIP_region_by_name (GeoIP* gi, const char *host);
 //GEOIP_API GeoIPRegion * GeoIP_region_by_ipnum (GeoIP *gi, unsigned long ipnum);
@@ -254,12 +267,16 @@ GEOIP_API const char *GeoIP_country_name_by_name_v6 (t gi, [string] const char *
 //
 ///** return id by country code **/
 //GEOIP_API int GeoIP_id_by_code(const char *country);
-//
-///** return return number of known countries */
-//GEOIP_API unsigned GeoIP_num_countries(void);
-//
-//GEOIP_API char *GeoIP_database_info (GeoIP* gi);
-//GEOIP_API unsigned char GeoIP_database_edition (GeoIP* gi);
+
+//quote(mli,"(** @return number of known countries *)\n") FIXME
+[mlname(num_countries)]
+GEOIP_API unsigned int GeoIP_num_countries(void);
+
+[mlname(database_info), string]
+GEOIP_API char *GeoIP_database_info(t gi);
+
+[mlname(database_edition)]
+GEOIP_API unsigned int GeoIP_database_edition(t gi);
 
 [mlname(charset)]
 GEOIP_API enum charset GeoIP_charset (t gi);

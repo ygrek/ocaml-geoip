@@ -51,5 +51,6 @@ let test2 () =
 
 let () = 
   test1 ();
-  test2 ()
+  test2 ();
+  interactive ()
 

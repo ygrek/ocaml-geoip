@@ -39,13 +39,18 @@ and netspeed =
   | GEOIP_CABLEDSL_SPEED
   | GEOIP_CORPORATE_SPEED
 
+(** GeoIP database library *)
+
 external setup_custom_directory : string -> unit
 	= "camlidl_geoip_GeoIP_setup_custom_directory"
 
-external init_exn : ?path:string -> ?db:db_type -> flags -> t = "caml_geoip_init"
-
 external is_db_avail : db_type -> bool
 	= "camlidl_geoip_GeoIP_db_avail"
+
+(** Open GeoIP database specified by [path] if given, 
+otherwise open database by [db_type] if given, otherwise open default database. 
+@raise Failure if database cannot be opened *)
+val init_exn : ?path:string -> ?db:db_type -> flags -> t
 
 external close : t -> unit
 	= "camlidl_geoip_GeoIP_delete"
@@ -94,6 +99,30 @@ external country_name_by_addr_v6 : t -> string -> string option
 
 external country_name_by_name_v6 : t -> string -> string option
 	= "camlidl_geoip_GeoIP_country_name_by_name_v6"
+
+external id_by_addr : t -> string -> int
+	= "camlidl_geoip_GeoIP_id_by_addr"
+
+external id_by_name : t -> string -> int
+	= "camlidl_geoip_GeoIP_id_by_name"
+
+external id_by_ipnum : t -> int -> int
+	= "camlidl_geoip_GeoIP_id_by_ipnum"
+
+external id_by_addr_v6 : t -> string -> int
+	= "camlidl_geoip_GeoIP_id_by_addr_v6"
+
+external id_by_name_v6 : t -> string -> int
+	= "camlidl_geoip_GeoIP_id_by_name_v6"
+
+external num_countries : unit -> int
+	= "camlidl_geoip_GeoIP_num_countries"
+
+external database_info : t -> string
+	= "camlidl_geoip_GeoIP_database_info"
+
+external database_edition : t -> int
+	= "camlidl_geoip_GeoIP_database_edition"
 
 external charset : t -> charset
 	= "camlidl_geoip_GeoIP_charset"

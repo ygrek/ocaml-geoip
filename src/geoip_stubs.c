@@ -171,8 +171,6 @@ value camlidl_geoip_GeoIP_setup_custom_directory(
   return Val_unit;
 }
 
-#include "geoip_init.h"
-
 value camlidl_geoip_GeoIP_db_avail(
 	value _v_type)
 {
@@ -185,6 +183,8 @@ value camlidl_geoip_GeoIP_db_avail(
   _vres = Val_int(_res);
   return _vres;
 }
+
+#include "geoip_init.h"
 
 value camlidl_geoip_GeoIP_delete(
 	value _v_gi)
@@ -614,6 +614,143 @@ value camlidl_geoip_GeoIP_country_name_by_name_v6(
       Field(_vres, 0) = _v1;
     End_roots();
   }
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_id_by_addr(
+	value _v_gi,
+	value _v_addr)
+{
+  t gi; /*in*/
+  char const *addr; /*in*/
+  int _res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  addr = String_val(_v_addr);
+  _res = GeoIP_id_by_addr(gi, addr);
+  _vres = Val_int(_res);
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_id_by_name(
+	value _v_gi,
+	value _v_host)
+{
+  t gi; /*in*/
+  char const *host; /*in*/
+  int _res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  host = String_val(_v_host);
+  _res = GeoIP_id_by_name(gi, host);
+  _vres = Val_int(_res);
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_id_by_ipnum(
+	value _v_gi,
+	value _v_ipnum)
+{
+  t gi; /*in*/
+  unsigned long ipnum; /*in*/
+  int _res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  ipnum = Long_val(_v_ipnum);
+  _res = GeoIP_id_by_ipnum(gi, ipnum);
+  _vres = Val_int(_res);
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_id_by_addr_v6(
+	value _v_gi,
+	value _v_addr)
+{
+  t gi; /*in*/
+  char const *addr; /*in*/
+  int _res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  addr = String_val(_v_addr);
+  _res = GeoIP_id_by_addr_v6(gi, addr);
+  _vres = Val_int(_res);
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_id_by_name_v6(
+	value _v_gi,
+	value _v_host)
+{
+  t gi; /*in*/
+  char const *host; /*in*/
+  int _res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  host = String_val(_v_host);
+  _res = GeoIP_id_by_name_v6(gi, host);
+  _vres = Val_int(_res);
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_num_countries(value _unit)
+{
+  unsigned int _res;
+  value _vres;
+
+  _res = GeoIP_num_countries();
+  _vres = Val_int(_res);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_database_info(
+	value _v_gi)
+{
+  t gi; /*in*/
+  char *_res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  _res = GeoIP_database_info(gi);
+  _vres = copy_string(_res);
+  camlidl_free(_ctx);
+  return _vres;
+}
+
+value camlidl_geoip_GeoIP_database_edition(
+	value _v_gi)
+{
+  t gi; /*in*/
+  unsigned int _res;
+  value _vres;
+
+  struct camlidl_ctx_struct _ctxs = { CAMLIDL_TRANSIENT, NULL };
+  camlidl_ctx _ctx = &_ctxs;
+  camlidl_ml2c_geoip_t(_v_gi, &gi, _ctx);
+  _res = GeoIP_database_edition(gi);
+  _vres = Val_int(_res);
   camlidl_free(_ctx);
   return _vres;
 }
