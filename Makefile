@@ -42,3 +42,12 @@ setup.data:
 gen:
 	cd src && camlidl -no-include geoip.idl
 
+VERSION=$(shell oasis query version)
+NAME=ocaml-geoip-$(VERSION)
+
+.PHONY: release
+release:
+	git tag -a -m $(VERSION) v$(VERSION)
+	git archive --prefix=$(NAME)/ v$(VERSION) | tar --delete $(NAME)/web | gzip > $(NAME).tar.gz
+	gpg -a -b $(NAME).tar.gz
+
