@@ -560,16 +560,12 @@ let package_default =
                    [
                       A "-cclib";
                       A "-lGeoIP";
-                      A "-cclib";
-                      A "-L/usr/lib/ocaml";
-                      A "-cclib";
-                      A "-lcamlidl"
                    ])
             ]);
           (["oasis_library_geoip_cclib"; "ocamlmklib"; "c"],
             [
                (OASISExpr.EBool true,
-                 S [A "-lGeoIP"; A "-L/usr/lib/ocaml"; A "-lcamlidl"])
+                 S [A "-lGeoIP";])
             ])
        ];
      includes = [("", ["src"])];

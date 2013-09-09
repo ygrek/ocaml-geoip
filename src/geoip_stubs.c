@@ -11,7 +11,54 @@
 #include <caml/custom.h>
 #include <caml/bigarray.h>
 #endif
-#include <caml/camlidlruntime.h>
+
+//////////
+//#include <caml/camlidlruntime.h>
+
+#define camlidl_alloc caml_alloc
+#define camlidl_alloc_small caml_alloc_small
+
+typedef void (* camlidl_free_function)(void *);
+
+struct camlidl_block_list {
+  camlidl_free_function free_fn;
+  void * block;
+  struct camlidl_block_list * next;
+};
+
+struct camlidl_ctx_struct {
+  int flags;
+  struct camlidl_block_list * head;
+};
+
+#define CAMLIDL_TRANSIENT 1
+#define CAMLIDL_ADDREF 2
+
+typedef struct camlidl_ctx_struct * camlidl_ctx;
+
+static value camlidl_find_enum(int n, int *flags, int nflags, char *errmsg)
+{
+  int i;
+
+  for (i = 0; i < nflags; i++) {
+    if (n == flags[i]) return Val_int(i);
+  }
+  invalid_argument(errmsg);
+  return Val_unit;              /* not reached, keeps CL happy */
+}
+
+static void camlidl_free(camlidl_ctx ctx)
+{
+  struct camlidl_block_list * arena, * tmp;
+  for (arena = ctx->head; arena != NULL; /*nothing*/) {
+    arena->free_fn(arena->block);
+    tmp = arena;
+    arena = arena->next;
+    stat_free(tmp);
+  }
+}
+
+//////////
 
 #include <GeoIP.h>
 

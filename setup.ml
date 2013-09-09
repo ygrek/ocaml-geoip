@@ -5671,7 +5671,7 @@ let setup_t =
                       bs_cclib =
                         [
                            (OASISExpr.EBool true,
-                             ["-lGeoIP"; "-L/usr/lib/ocaml"; "-lcamlidl"])
+                             ["-lGeoIP"])
                         ];
                       bs_dlllib = [(OASISExpr.EBool true, [])];
                       bs_dllpath = [(OASISExpr.EBool true, [])];

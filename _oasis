@@ -22,9 +22,8 @@ Description:
 Library geoip
   Path: src
   Modules: Geoip
-  CClib: -lGeoIP -L/usr/lib/ocaml -lcamlidl
+  CClib: -lGeoIP
   CSources: geoip_stubs.c, geoip_init.h
-#  BuildDepends: camlidl
 
 Executable test
   Install: false
