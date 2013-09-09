@@ -1,11 +1,11 @@
 OASISFormat: 0.1
 Name:        geoip
-Version:     0.0.1
+Version:     0.0.2
 Synopsis:    Bindings to GeoIP library
 Authors:     ygrek
 Copyrights:  (C) 2011 ygrek
 License:     LGPL-2.1 with OCaml linking exception
-Plugins:     DevFiles, META
+Plugins:     DevFiles (0.3), META (0.3)
 BuildTools:  ocamlbuild
 Homepage:    http://geoip.forge.ocamlcore.org/
 
@@ -38,7 +38,7 @@ Test test
 
 Document api
   Title: API reference
-  Type: ocamlbuild
+  Type: ocamlbuild (0.3)
   BuildTools: ocamldoc
   Format: HTML
   Index: index.html
@@ -50,4 +50,3 @@ SourceRepository main
   Type: git
   Location: http://git.ocamlcore.org/geoip/geoip.git
   Browser: http://git.ocamlcore.org/cgi-bin/gitweb.cgi?p=geoip/geoip.git
-
