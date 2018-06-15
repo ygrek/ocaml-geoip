@@ -1,13 +1,13 @@
-OASISFormat: 0.1
+OASISFormat: 0.4
 Name:        geoip
-Version:     0.0.2
+Version:     0.0.3
 Synopsis:    Bindings to GeoIP library
 Authors:     ygrek
 Copyrights:  (C) 2011 ygrek
 License:     LGPL-2.1 with OCaml linking exception
-Plugins:     DevFiles (0.3), META (0.3)
+Plugins:     DevFiles (0.4), META (0.4)
 BuildTools:  ocamlbuild
-Homepage:    http://geoip.forge.ocamlcore.org/
+Homepage:    http://ygrek.org.ua/p/ocaml-geoip/
 
 Description:
   GeoIP is a C library that enables the user to find the country that any IP
@@ -38,7 +38,7 @@ Test test
 
 Document api
   Title: API reference
-  Type: ocamlbuild (0.3)
+  Type: ocamlbuild (0.4)
   BuildTools: ocamldoc
   Format: HTML
   Index: index.html
