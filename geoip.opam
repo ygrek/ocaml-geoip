@@ -22,6 +22,7 @@ build: [
 ]
 depends: [
   "ocaml" {>= "4.02"}
+  "camlidl"
   "dune" { >= "2.0" }
   "odoc" {with-doc}
 ]

@@ -2,6 +2,7 @@
  (public_name geoip)
  (name geoip)
  (wrapped false)
+ (libraries camlidl)
  (foreign_stubs
   (language c)
   (names geoip_stubs))
