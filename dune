@@ -1,0 +1,8 @@
+(env
+ (_
+  (flags :standard -strict-sequence -safe-string)))
+
+(executable
+  (name example)
+  (modules example)
+  (libraries geoip unix))

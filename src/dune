@@ -1,0 +1,12 @@
+(library
+ (public_name geoip)
+ (name geoip)
+ (wrapped false)
+ (foreign_stubs
+  (language c)
+  (names geoip_stubs))
+ (c_library_flags
+  (:standard -lGeoIP)))
+
+;  CClib: -lGeoIP
+;  CSources: geoip_stubs.c, geoip_init.h

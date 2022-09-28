@@ -18,7 +18,7 @@ let test1 () =
       "127.0.0.1"
     ] in
     let t1 = Unix.gettimeofday () in
-    for i = 1 to 1_000_000 do
+    for _i = 1 to 1_000_000 do
       List.iter (fun s -> ignore (code s)) ips
     done;
     pr "%.2f seconds" (Unix.gettimeofday () -. t1);

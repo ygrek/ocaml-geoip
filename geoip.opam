@@ -1,0 +1,34 @@
+opam-version: "2.0"
+name: "geoip"
+synopsis: "Bindings to GeoIP database library"
+description:
+  """
+  GeoIP is a C library that enables the user to find the country that any IP
+  address or hostname originates from. It uses a file based database.  This
+  database simply contains IP blocks as keys, and countries as values and it
+  should be more complete and accurate than using reverse DNS lookups.
+
+  See http://www.maxmind.com/ for more info.
+  """
+maintainer: "ygrek@autistici.org"
+authors: "ygrek"
+tags: [ "org:ygrek" "clib:geoip" ]
+license: "LGPL-2.1 with OCaml linking exception"
+homepage: "https://ygrek.org/p/ocaml-geoip/"
+doc: "https://ygrek.org/p/ocaml-geoip/api/index.html"
+bug-reports: "https://github.com/ygrek/ocaml-geoip/issues"
+build: [
+  ["dune" "build" "@install" "-j" jobs "-p" name]
+]
+depends: [
+  "ocaml" {>= "4.02"}
+  "dune" { >= "2.0" }
+  "odoc" {with-doc}
+]
+depexts: [
+  ["libgeoip-dev"] {os-family = "debian"}
+  ["geoip"] {os = "macos" & os-distribution = "homebrew"}
+  ["geoip-dev"] {os-distribution = "alpine"}
+  ["GeoIP-devel"] {os-distribution = "centos"}
+]
+dev-repo: "git+https://github.com/ygrek/ocaml-geoip.git"
